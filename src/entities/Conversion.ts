@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Article } from "./Article";
+import {UnitEnum} from "../enum/UnitEnum";
 
 @Entity("conversion", { schema: "krstic_promet" })
 export class Conversion {
@@ -9,12 +10,12 @@ export class Conversion {
   @Column("int", { name: "conversion_from_value", nullable: true })
   conversionFromValue: number | null;
 
-  @Column("varchar", {
-    name: "conversion_from_unit",
-    nullable: true,
-    length: 64,
+  @Column({
+    type: "enum",
+    default: UnitEnum.METER,
+    enum: UnitEnum
   })
-  conversionFromUnit: string | null;
+  conversionFromUnit: UnitEnum;
 
   @Column("double", {
     name: "conversion_to_value",
@@ -23,8 +24,12 @@ export class Conversion {
   })
   conversionToValue: number | null;
 
-  @Column("varchar", { name: "conversion_to_unit", nullable: true, length: 64 })
-  conversionToUnit: string | null;
+  @Column({
+    type: "enum",
+    default: UnitEnum.METER,
+    enum: UnitEnum
+  })
+  conversionToUnit: UnitEnum;
 
   @OneToMany(() => Article, (article) => article.idConversion)
   articles: Article[];
