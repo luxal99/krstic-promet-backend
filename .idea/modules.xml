@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/krstic-promet-backend.iml" filepath="$PROJECT_DIR$/.idea/krstic-promet-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../krstic-promet-frontend/.idea/krstic-promet-frontend.iml" filepath="$PROJECT_DIR$/../krstic-promet-frontend/.idea/krstic-promet-frontend.iml" />
+    </modules>
+  </component>
+</project>
