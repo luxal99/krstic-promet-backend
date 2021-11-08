@@ -3,6 +3,6 @@ import {ArticleCategory} from "../entities/ArticleCategory";
 import {ArticleSubCategory} from "../entities/ArticleSubCategory";
 
 @EntityRepository(ArticleSubCategory)
-export class ArticleRepository extends Repository<ArticleSubCategory> {
+export class ArticleSubCategoryRepository extends Repository<ArticleSubCategory> {
 
 }

@@ -27,3 +27,4 @@ export const DATABASE_CONFIG = TypeOrmModule.forRoot({
     entities: LIST_OF_ENTITIES,
     synchronize: true,
 });
+export const AUTHORIZATION_HEADER = "Authorization"
