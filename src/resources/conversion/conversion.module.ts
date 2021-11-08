@@ -1,9 +1,13 @@
-import { Module } from '@nestjs/common';
-import { ConversionService } from './conversion.service';
-import { ConversionController } from './conversion.controller';
+import {Module} from "@nestjs/common";
+import {ConversionService} from "./conversion.service";
+import {ConversionController} from "./conversion.controller";
+import {TypeOrmModule} from "@nestjs/typeorm";
+import {ConversionRepository} from "../../repository/ConversionRepository";
 
 @Module({
-  controllers: [ConversionController],
-  providers: [ConversionService]
+    imports: [TypeOrmModule.forFeature([ConversionRepository])],
+    controllers: [ConversionController],
+    providers: [ConversionService]
 })
-export class ConversionModule {}
+export class ConversionModule {
+}
