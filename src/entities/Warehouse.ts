@@ -16,6 +16,6 @@ export class Warehouse {
   })
   createdDate: Date | null;
 
-  @OneToMany(() => Article, (article) => article.idWarehouse2)
+  @OneToMany(() => Article, (article) => article.idWarehouse)
   articles: Article[];
 }

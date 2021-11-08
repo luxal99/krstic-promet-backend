@@ -26,6 +26,6 @@ export class Conversion {
   @Column("varchar", { name: "conversion_to_unit", nullable: true, length: 64 })
   conversionToUnit: string | null;
 
-  @OneToMany(() => Article, (article) => article.idConversion2)
+  @OneToMany(() => Article, (article) => article.idConversion)
   articles: Article[];
 }

@@ -20,7 +20,7 @@ export class ArticleSubCategory {
   title: string;
 
 
-  @OneToMany(() => Article, (article) => article.idArticleSubCategory2)
+  @OneToMany(() => Article, (article) => article.idArticleSubCategory)
   articles: Article[];
 
   @ManyToOne(
