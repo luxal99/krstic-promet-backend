@@ -19,8 +19,6 @@ export class ArticleSubCategory {
   @Column("varchar", { name: "title", length: 64 })
   title: string;
 
-  @Column("int", { name: "id_article_category", nullable: true })
-  idArticleCategory: number | null;
 
   @OneToMany(() => Article, (article) => article.idArticleSubCategory2)
   articles: Article[];
@@ -31,5 +29,5 @@ export class ArticleSubCategory {
     { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
   )
   @JoinColumn([{ name: "id_article_category", referencedColumnName: "id" }])
-  idArticleCategory2: ArticleCategory;
+  idArticleCategory: ArticleCategory;
 }

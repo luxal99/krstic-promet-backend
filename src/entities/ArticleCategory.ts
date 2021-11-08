@@ -11,7 +11,7 @@ export class ArticleCategory {
 
   @OneToMany(
     () => ArticleSubCategory,
-    (articleSubCategory) => articleSubCategory.idArticleCategory2
+    (articleSubCategory) => articleSubCategory.idArticleCategory
   )
   articleSubCategories: ArticleSubCategory[];
 }
