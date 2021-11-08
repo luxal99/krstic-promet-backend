@@ -1,5 +1,3 @@
-create database krstic_promet;
-use krstic_promet;
 create table article_category
 (
 	id int auto_increment
@@ -19,6 +17,16 @@ create table article_sub_category
 
 create index id_article_category
 	on article_sub_category (id_article_category);
+
+create table conversion
+(
+	id int auto_increment
+		primary key,
+	conversion_from_value int null,
+	conversion_from_unit varchar(64) null,
+	conversion_to_value double null,
+	conversion_to_unit varchar(64) null
+);
 
 create table user
 (
@@ -49,16 +57,22 @@ create table article
 	debit double default ((`purchase_price` * `amount`)) not null,
 	id_article_sub_category int null,
 	id_warehouse int null,
+	id_conversion int null,
 	constraint code
 		unique (code),
 	constraint article_ibfk_1
 		foreign key (id_article_sub_category) references article_sub_category (id),
 	constraint article_ibfk_2
-		foreign key (id_warehouse) references warehouse (id)
+		foreign key (id_warehouse) references warehouse (id),
+	constraint article_ibfk_3
+		foreign key (id_conversion) references conversion (id)
 );
 
 create index id_article_sub_category
 	on article (id_article_sub_category);
+
+create index id_conversion
+	on article (id_conversion);
 
 create index id_warehouse
 	on article (id_warehouse);
