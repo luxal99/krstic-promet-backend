@@ -7,6 +7,6 @@ import {ArticleSubCategoryRepository} from "../../repository/ArticleSubCategoryR
 export class ArticleSubCategoryService extends GenericService<ArticleSubCategory> {
 
     constructor(private repository: ArticleSubCategoryRepository) {
-        super(repository, []);
+        super(repository, ["idArticleCategory"]);
     }
 }
