@@ -28,3 +28,7 @@ export const DATABASE_CONFIG = TypeOrmModule.forRoot({
     synchronize: true,
 });
 export const AUTHORIZATION_HEADER = "Authorization"
+export class Message {
+    static ACCESS_DENIED_MESSAGE = "Pristup odbijen";
+    static INVALID_TOKEN_MESSAGE = "Nevalidan token";
+}
