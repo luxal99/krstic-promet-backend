@@ -7,6 +7,6 @@ import {ArticleRepository} from "../../repository/ArticleRepository";
 export class ArticleService extends GenericService<Article> {
 
     constructor(private repository: ArticleRepository) {
-        super(repository, []);
+        super(repository, ["idArticleSubCategory","idWarehouse","idConversion"]);
     }
 }
