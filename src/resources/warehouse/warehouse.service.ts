@@ -6,6 +6,11 @@ import {WarehouseRepository} from "../../repository/WarehouseRepository";
 @Injectable()
 export class WarehouseService extends GenericService<Warehouse> {
     constructor(private repository: WarehouseRepository) {
-        super(repository, []);
+        super(repository,
+            [
+                "articles", "articles.idArticleSubCategory",
+                "articles.idArticleSubCategory.idArticleCategory",
+                "articles.idConversion"
+            ]);
     }
 }
