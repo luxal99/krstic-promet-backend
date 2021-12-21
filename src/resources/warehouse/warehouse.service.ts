@@ -13,4 +13,5 @@ export class WarehouseService extends GenericService<Warehouse> {
                 "articles.idConversion"
             ]);
     }
+
 }

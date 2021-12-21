@@ -72,4 +72,6 @@ export class Article {
         name: "price_type"
     })
     public priceType: PriceTypeEnum;
+
+    
 }
