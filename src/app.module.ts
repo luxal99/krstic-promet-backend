@@ -10,6 +10,8 @@ import { ConversionModule } from "./resources/conversion/conversion.module";
 import { WarehouseModule } from "./resources/warehouse/warehouse.module";
 import { JwtMiddleware } from "./middleware/jwt.middleware";
 import { ClientModule } from "./resources/client/client.module";
+import { DeliveryNoteModule } from "./resources/delivery-note/delivery-note.module";
+import { DeliveryNoteArticleModule } from "./resources/delivery-note-article/delivery-note-article.module";
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { ClientModule } from "./resources/client/client.module";
     ArticleCategoryModule,
     ConversionModule,
     ClientModule,
+    DeliveryNoteModule,
+    DeliveryNoteArticleModule,
     WarehouseModule,
     UserModule,
   ],

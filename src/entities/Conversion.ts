@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Article } from "./Article";
-import {UnitEnum} from "../enum/UnitEnum";
+import { UnitEnum } from "../enum/UnitEnum";
 
 @Entity("conversion", { schema: "krstic_promet" })
 export class Conversion {
@@ -13,7 +13,7 @@ export class Conversion {
   @Column({
     type: "enum",
     default: UnitEnum.METER,
-    enum: UnitEnum
+    enum: UnitEnum,
   })
   conversionFromUnit: UnitEnum;
 
@@ -27,7 +27,7 @@ export class Conversion {
   @Column({
     type: "enum",
     default: UnitEnum.METER,
-    enum: UnitEnum
+    enum: UnitEnum,
   })
   conversionToUnit: UnitEnum;
 

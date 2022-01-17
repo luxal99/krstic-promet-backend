@@ -19,7 +19,6 @@ export class ArticleSubCategory {
   @Column("varchar", { name: "title", length: 64 })
   title: string;
 
-
   @OneToMany(() => Article, (article) => article.idArticleSubCategory)
   articles: Article[];
 

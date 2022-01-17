@@ -1,6 +1,6 @@
 export interface QuerySearchDto {
-    path: string;
-    operation: ">" | "<" | "=";
-    value: string;
-    key?: string;
+  path: string;
+  operation: ">" | "<" | "=";
+  value: string;
+  key?: string;
 }

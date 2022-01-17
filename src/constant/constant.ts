@@ -8,12 +8,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
 import { DeliveryNote } from "../entities/DeliveryNote";
 import { Client } from "../entities/Client";
+import { DeliveryNoteArticle } from "../entities/DeliveryNoteArticle";
 
 const LIST_OF_ENTITIES = [
   Article,
   ArticleCategory,
   ArticleSubCategory,
   DeliveryNote,
+  DeliveryNoteArticle,
   Conversion,
   Client,
   User,

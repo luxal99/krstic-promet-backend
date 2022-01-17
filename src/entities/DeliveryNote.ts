@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Base } from "../util/generic/base.entity";
 import { DeliveryNoteStatusEnum } from "../enum/DeliveryNoteStatusEnum";
 import { Client } from "./Client";
+import { DeliveryNoteArticle } from "./DeliveryNoteArticle";
 
 @Entity()
 export class DeliveryNote extends Base {
@@ -26,4 +27,18 @@ export class DeliveryNote extends Base {
   })
   @JoinColumn([{ name: "id_client", referencedColumnName: "id" }])
   idClient: Client;
+
+  @Column({ type: "double", name: "gross" })
+  gross: number;
+
+  @OneToMany(
+    () => DeliveryNoteArticle,
+    (deliveryNoteArticle) => deliveryNoteArticle.idDeliveryNote,
+    {
+      cascade: true,
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    }
+  )
+  listOfArticles: DeliveryNoteArticle[];
 }
