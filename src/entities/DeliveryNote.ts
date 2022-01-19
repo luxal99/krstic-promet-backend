@@ -13,6 +13,12 @@ export class DeliveryNote extends Base {
   })
   createdDate: Date | null;
 
+  @Column("date", {
+    name: "date_of_delivery_note",
+    nullable: false,
+  })
+  dateOfDeliveryNote: Date | null;
+
   @Column({
     type: "enum",
     default: DeliveryNoteStatusEnum.NOT_PAID,

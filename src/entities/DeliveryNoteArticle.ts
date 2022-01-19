@@ -13,8 +13,9 @@ export class DeliveryNoteArticle {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  articlePrice: number;
+  @Column({ name: "selling_price" })
+  sellingPrice: number;
+
   @ManyToOne(
     () => DeliveryNote,
     (deliveryNote) => deliveryNote.listOfArticles,
