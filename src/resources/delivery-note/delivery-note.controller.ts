@@ -3,6 +3,8 @@ import { DeliveryNoteService } from "./delivery-note.service";
 import { Response } from "express";
 import { DeliveryNote } from "../../entities/DeliveryNote";
 import { ArticleService } from "../article/article.service";
+import { DeliveryNoteQuery } from "../../annotations/annotations";
+import { DeliveryNoteQueryDto } from "../../models/dto/DeliveryNoteQueryDto";
 
 @Controller("delivery-note")
 export class DeliveryNoteController {
@@ -32,9 +34,15 @@ export class DeliveryNoteController {
   }
 
   @Get()
-  async getAll(@Res() res: Response) {
+  async getAll(
+    @Res() res: Response,
+    @DeliveryNoteQuery() query: DeliveryNoteQueryDto
+  ) {
     try {
-      res.send(await this.deliveryNoteService.findAll());
+      const listOfDeliveryNotes: [DeliveryNote[], number] =
+        await this.deliveryNoteService.getAllWithQuery(query);
+      res.header("TOTAL", JSON.stringify(listOfDeliveryNotes[1]));
+      res.send(listOfDeliveryNotes[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
