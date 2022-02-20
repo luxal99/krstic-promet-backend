@@ -16,6 +16,9 @@ export class DeliveryNoteArticle {
   @Column({ name: "selling_price" })
   sellingPrice: number;
 
+  @Column({ name: "amount" })
+  amount: number;
+
   @ManyToOne(
     () => DeliveryNote,
     (deliveryNote) => deliveryNote.listOfArticles,

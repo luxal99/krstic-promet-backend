@@ -1,4 +1,13 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Res,
+} from "@nestjs/common";
 import { DeliveryNoteService } from "./delivery-note.service";
 import { Response } from "express";
 import { DeliveryNote } from "../../entities/DeliveryNote";
@@ -21,6 +30,7 @@ export class DeliveryNoteController {
       body.listOfArticles = body.listOfArticles.map((item) => ({
         idArticle: { id: item.id },
         sellingPrice: item.sellingPrice,
+        amount: item.amount,
       }));
       const savedDeliveryNote = await this.deliveryNoteService.save(body);
       for (const article of listOfArticles) {
@@ -43,6 +53,31 @@ export class DeliveryNoteController {
         await this.deliveryNoteService.getAllWithQuery(query);
       res.header("TOTAL", JSON.stringify(listOfDeliveryNotes[1]));
       res.send(listOfDeliveryNotes[0]);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
+
+  @Get()
+  async findByiId(@Param("id") id: number, @Res() res: Response) {}
+
+  @Delete("/:id")
+  async deleteDeliveryNote(@Param("id") id: number, @Res() res: Response) {
+    try {
+      const deliveryNotesById: DeliveryNote =
+        await this.deliveryNoteService.findById(id);
+      this.deliveryNoteService.delete(id).then(async () => {
+        for (let articleDto of deliveryNotesById.listOfArticles) {
+          articleDto.idArticle.amount =
+            articleDto.idArticle.amount + articleDto.amount;
+          await this.articleService.update(
+            articleDto.idArticle.id,
+            articleDto.idArticle
+          );
+        }
+
+        res.sendStatus(HttpStatus.OK);
+      });
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }

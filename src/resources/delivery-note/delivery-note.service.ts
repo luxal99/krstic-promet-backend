@@ -38,4 +38,11 @@ export class DeliveryNoteService extends GenericService<DeliveryNote> {
       )
       .getManyAndCount();
   }
+
+  async findById(id: number): Promise<DeliveryNote> {
+    return await this.repository.findOne({
+      where: { id },
+      relations: this.getRelations,
+    });
+  }
 }
