@@ -30,6 +30,7 @@ export class DeliveryNote extends Base {
   @ManyToOne(() => Client, (client) => client.listOfDeliveryNotes, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
+    nullable: true,
   })
   @JoinColumn([{ name: "id_client", referencedColumnName: "id" }])
   idClient: Client;

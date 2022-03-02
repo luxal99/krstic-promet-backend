@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { GenericService } from "../../util/generic/generic.service";
 import { Article } from "../../entities/Article";
 import { ArticleRepository } from "../../repository/ArticleRepository";
-import { DeliveryNoteArticleDto } from "../../models/dto/DeliveryNoteArticleDto";
+import { ILike, Like } from "typeorm";
 
 @Injectable()
 export class ArticleService extends GenericService<Article> {
@@ -14,5 +14,21 @@ export class ArticleService extends GenericService<Article> {
     await this.repository.update(article.id, {
       amount: article.amountInWarehouse - article.amount,
     });
+  }
+
+  async searchForArticle(searchText: string): Promise<Article[]> {
+    return await this.repository
+      .createQueryBuilder("deliveryNote")
+      .leftJoinAndSelect(
+        "deliveryNote.idArticleSubCategory",
+        "idArticleSubCategory"
+      )
+      .leftJoinAndSelect("deliveryNote.idWarehouse", "idWarehouse")
+      .leftJoinAndSelect("deliveryNote.idConversion", "idConversion")
+      .where("LOWER(deliveryNote.code) like :code", { code: `%${searchText}%` })
+      .orWhere("LOWER(deliveryNote.name) like :name", {
+        name: `%${searchText}%`,
+      })
+      .getMany();
   }
 }
