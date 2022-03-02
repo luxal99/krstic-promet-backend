@@ -1,8 +1,9 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Base } from "../util/generic/base.entity";
-import { DeliveryNoteStatusEnum } from "../enum/DeliveryNoteStatusEnum";
+import { DeliveryNotePaidStatusEnum } from "../enum/DeliveryNotePaidStatusEnum";
 import { Client } from "./Client";
 import { DeliveryNoteArticle } from "./DeliveryNoteArticle";
+import { DeliveryNoteStatusEnum } from "../enum/DeliveryNoteStatusEnum";
 
 @Entity()
 export class DeliveryNote extends Base {
@@ -21,12 +22,19 @@ export class DeliveryNote extends Base {
 
   @Column({
     type: "enum",
-    default: DeliveryNoteStatusEnum.NOT_PAID,
-    enum: DeliveryNoteStatusEnum,
+    default: DeliveryNotePaidStatusEnum.NOT_PAID,
+    enum: DeliveryNotePaidStatusEnum,
     name: "paid_status",
   })
-  public paidStatus: DeliveryNoteStatusEnum;
+  public paidStatus: DeliveryNotePaidStatusEnum;
 
+  @Column({
+    type: "enum",
+    default: DeliveryNoteStatusEnum.NOT_DELIVERED,
+    enum: DeliveryNoteStatusEnum,
+    name: "delivery_status",
+  })
+  public deliveryStatus: DeliveryNoteStatusEnum;
   @ManyToOne(() => Client, (client) => client.listOfDeliveryNotes, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
