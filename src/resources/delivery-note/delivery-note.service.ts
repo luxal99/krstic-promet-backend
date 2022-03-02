@@ -3,6 +3,7 @@ import { GenericService } from "../../util/generic/generic.service";
 import { DeliveryNote } from "../../entities/DeliveryNote";
 import { DeliveryNoteRepository } from "../../repository/DeliveryNoteRepository";
 import { DeliveryNoteQueryDto } from "../../models/dto/DeliveryNoteQueryDto";
+import { DeliveryNotePaidStatusEnum } from "../../enum/DeliveryNotePaidStatusEnum";
 
 @Injectable()
 export class DeliveryNoteService extends GenericService<DeliveryNote> {
@@ -42,6 +43,24 @@ export class DeliveryNoteService extends GenericService<DeliveryNote> {
   async findById(id: number): Promise<DeliveryNote> {
     return await this.repository.findOne({
       where: { id },
+      relations: this.getRelations,
+    });
+  }
+
+  async findDeliveryNoteByPaidStatus(
+    paidStatus: DeliveryNotePaidStatusEnum
+  ): Promise<DeliveryNote[]> {
+    return await this.repository.find({
+      where: { paidStatus },
+      relations: this.getRelations,
+    });
+  }
+
+  async findDeliveryNoteByDeliveryStatus(
+    deliveryStatus: DeliveryNotePaidStatusEnum
+  ): Promise<DeliveryNote[]> {
+    return await this.repository.find({
+      where: { deliveryStatus },
       relations: this.getRelations,
     });
   }

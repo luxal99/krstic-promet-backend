@@ -6,10 +6,12 @@ import {
   HttpStatus,
   Param,
   Post,
+  Query,
+  Req,
   Res,
 } from "@nestjs/common";
 import { DeliveryNoteService } from "./delivery-note.service";
-import { Response } from "express";
+import { Request, Response } from "express";
 import { DeliveryNote } from "../../entities/DeliveryNote";
 import { ArticleService } from "../article/article.service";
 import { DeliveryNoteQuery } from "../../annotations/annotations";
@@ -78,6 +80,39 @@ export class DeliveryNoteController {
 
         res.sendStatus(HttpStatus.OK);
       });
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
+
+  @Get("find-by-paid-status")
+  async findDeliveryNoteByPaidStatus(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Query() query
+  ) {
+    try {
+      res.send(
+        await this.deliveryNoteService.findDeliveryNoteByPaidStatus(
+          query.paidStatus
+        )
+      );
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
+  @Get("find-by-DELIVERY-status")
+  async findDeliveryNoteByDeliveryStatus(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Query() query
+  ) {
+    try {
+      res.send(
+        await this.deliveryNoteService.findDeliveryNoteByDeliveryStatus(
+          query.deliveryStatus
+        )
+      );
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
