@@ -7,8 +7,11 @@ export class Conversion {
   @PrimaryGeneratedColumn({ type: "int", name: "id" })
   id: number;
 
-  @Column("int", { name: "conversion_from_value", nullable: true })
-  conversionFromValue: number | null;
+  @Column("varchar", { name: "name", nullable: true })
+  name: number | null;
+
+  @Column("varchar", { name: "conversion_from_value", nullable: true })
+  conversionFromValue: string | null;
 
   @Column({
     type: "enum",
