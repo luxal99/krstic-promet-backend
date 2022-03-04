@@ -6,6 +6,7 @@ import {
   HttpStatus,
   Param,
   Post,
+  Put,
   Query,
   Req,
   Res,
@@ -16,6 +17,8 @@ import { DeliveryNote } from "../../entities/DeliveryNote";
 import { ArticleService } from "../article/article.service";
 import { DeliveryNoteQuery } from "../../annotations/annotations";
 import { DeliveryNoteQueryDto } from "../../models/dto/DeliveryNoteQueryDto";
+import { Article } from "../../entities/Article";
+import { DeliveryNoteArticle } from "../../entities/DeliveryNoteArticle";
 
 @Controller("delivery-note")
 export class DeliveryNoteController {
@@ -43,6 +46,35 @@ export class DeliveryNoteController {
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
+  }
+
+  @Put()
+  async update(
+    @Res() response: Response,
+    @Req() req: Request,
+    @Body() body: DeliveryNote
+  ) {
+    const deliveryNoteById: DeliveryNote =
+      await this.deliveryNoteService.findById(body.id);
+    const listOfArticles = body.listOfArticles;
+    // @ts-ignore
+    body.listOfArticles = body.listOfArticles.map((item) => ({
+      idArticle: { id: item.id },
+      sellingPrice: item.sellingPrice,
+      amount: item.amount,
+    }));
+    let amountSizeToUpdate = 0;
+    for (const article of listOfArticles) {
+      const articleById: DeliveryNoteArticle =
+        deliveryNoteById.listOfArticles.find(
+          (item) => item.idArticle.id === article.id
+        );
+      amountSizeToUpdate =
+        (articleById ? articleById.amount : 0) - article.amount;
+      await this.articleService.updateCustomAmount(article, amountSizeToUpdate);
+    }
+
+    response.send(await this.deliveryNoteService.update(body.id, body));
   }
 
   @Get()
@@ -101,6 +133,7 @@ export class DeliveryNoteController {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
   }
+
   @Get("find-by-DELIVERY-status")
   async findDeliveryNoteByDeliveryStatus(
     @Req() req: Request,

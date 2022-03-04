@@ -16,6 +16,12 @@ export class ArticleService extends GenericService<Article> {
     });
   }
 
+  async updateCustomAmount(article: any, articleSize: number): Promise<void> {
+    await this.repository.update(article.id, {
+      amount: article.amountInWarehouse + articleSize,
+    });
+  }
+
   async searchForArticle(searchText: string): Promise<Article[]> {
     return await this.repository
       .createQueryBuilder("deliveryNote")
