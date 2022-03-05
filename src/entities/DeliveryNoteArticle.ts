@@ -7,6 +7,8 @@ import {
 } from "typeorm";
 import { DeliveryNote } from "./DeliveryNote";
 import { Article } from "./Article";
+import { DeliveryNotePaidStatusEnum } from "../enum/DeliveryNotePaidStatusEnum";
+import { DeliveryNoteStatusEnum } from "../enum/DeliveryNoteStatusEnum";
 
 @Entity()
 export class DeliveryNoteArticle {
@@ -18,6 +20,11 @@ export class DeliveryNoteArticle {
 
   @Column({ name: "amount" })
   amount: number;
+  @Column({ name: "payed_amount", default: 0 })
+  payedAmount: number;
+
+  @Column({ name: "delivered_amount", default: 0 })
+  deliveredAmount: number;
 
   @ManyToOne(
     () => DeliveryNote,
@@ -31,9 +38,24 @@ export class DeliveryNoteArticle {
   idDeliveryNote: DeliveryNote;
 
   @ManyToOne(() => Article, (article) => article.listOfDeliveryNotes, {
-    onDelete: "NO ACTION",
+    onDelete: "CASCADE",
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "id_article", referencedColumnName: "id" }])
   idArticle: Article;
+
+  @Column({
+    type: "enum",
+    default: DeliveryNotePaidStatusEnum.NOT_PAID,
+    enum: DeliveryNotePaidStatusEnum,
+    name: "paid_status",
+  })
+  public paidStatus: DeliveryNotePaidStatusEnum;
+  @Column({
+    type: "enum",
+    default: DeliveryNoteStatusEnum.NOT_DELIVERED,
+    enum: DeliveryNoteStatusEnum,
+    name: "delivery_status",
+  })
+  public deliveryStatus: DeliveryNoteStatusEnum;
 }

@@ -36,6 +36,10 @@ export class DeliveryNoteController {
         idArticle: { id: item.id },
         sellingPrice: item.sellingPrice,
         amount: item.amount,
+        deliveryStatus: item.deliveryStatus,
+        deliveredAmount: item.deliveredAmount,
+        payedAmount: item.payedAmount,
+        paidStatus: item.paidStatus,
       }));
       const savedDeliveryNote = await this.deliveryNoteService.save(body);
       for (const article of listOfArticles) {

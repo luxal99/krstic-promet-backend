@@ -11,14 +11,22 @@ export class ArticleService extends GenericService<Article> {
   }
 
   async updateAmount(article: any): Promise<void> {
+    const articleByID: Article = await this.findOne(article.id);
     await this.repository.update(article.id, {
       amount: article.amountInWarehouse - article.amount,
+      debit:
+        (article.amountInWarehouse - article.amount) *
+        articleByID.purchasePrice,
     });
   }
 
   async updateCustomAmount(article: any, articleSize: number): Promise<void> {
+    const articleByID: Article = await this.findOne(article.id);
     await this.repository.update(article.id, {
       amount: article.amountInWarehouse + articleSize,
+      debit:
+        (article.amountInWarehouse - article.amount) *
+        articleByID.purchasePrice,
     });
   }
 
