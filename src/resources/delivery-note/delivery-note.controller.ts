@@ -144,7 +144,7 @@ export class DeliveryNoteController {
     }
   }
 
-  @Get("find-by-DELIVERY-status")
+  @Get("find-by-delivery-status")
   async findDeliveryNoteByDeliveryStatus(
     @Req() req: Request,
     @Res() res: Response,
