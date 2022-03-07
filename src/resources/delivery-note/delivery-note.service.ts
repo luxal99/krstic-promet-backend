@@ -33,8 +33,8 @@ export class DeliveryNoteService extends GenericService<DeliveryNote> {
       .where(
         "deliveryNote.dateOfDeliveryNote >= :startDate AND deliveryNote.dateOfDeliveryNote <= :endDate",
         {
-          startDate: new Date(deliveryNoteQueryDto.startDate),
-          endDate: new Date(deliveryNoteQueryDto.endDate),
+          startDate: deliveryNoteQueryDto.startDate,
+          endDate: deliveryNoteQueryDto.endDate,
         }
       )
       .getManyAndCount();

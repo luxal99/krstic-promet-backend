@@ -17,7 +17,6 @@ import { DeliveryNote } from "../../entities/DeliveryNote";
 import { ArticleService } from "../article/article.service";
 import { DeliveryNoteQuery } from "../../annotations/annotations";
 import { DeliveryNoteQueryDto } from "../../models/dto/DeliveryNoteQueryDto";
-import { Article } from "../../entities/Article";
 import { DeliveryNoteArticle } from "../../entities/DeliveryNoteArticle";
 
 @Controller("delivery-note")
@@ -58,8 +57,6 @@ export class DeliveryNoteController {
     @Req() req: Request,
     @Body() body: DeliveryNote
   ) {
-    const deliveryNoteById: DeliveryNote =
-      await this.deliveryNoteService.findById(body.id);
     const listOfArticles = body.listOfArticles;
     // @ts-ignore
     body.listOfArticles = body.listOfArticles.map((item) => ({
@@ -74,13 +71,18 @@ export class DeliveryNoteController {
       paidStatus: item.paidStatus,
     }));
     let amountSizeToUpdate = 0;
+    const beforeUpdateDeliveryNote: DeliveryNote =
+      await this.deliveryNoteService.findById(body.id);
     for (const article of listOfArticles) {
       const articleById: DeliveryNoteArticle =
-        deliveryNoteById.listOfArticles.find(
+        beforeUpdateDeliveryNote.listOfArticles.find(
           (item) => item.idArticle.id === article.id
         );
-      amountSizeToUpdate =
-        (articleById ? articleById.amount : 0) - article.amount;
+
+      amountSizeToUpdate = articleById
+        ? articleById.deliveredAmount - article.deliveredAmount
+        : article.deliveredAmount;
+
       await this.articleService.updateCustomAmount(article, amountSizeToUpdate);
     }
 

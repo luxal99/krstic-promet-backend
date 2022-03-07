@@ -13,7 +13,7 @@ export class ArticleService extends GenericService<Article> {
   async updateAmount(article: any): Promise<void> {
     const articleByID: Article = await this.findOne(article.id);
     await this.repository.update(article.id, {
-      amount: article.amountInWarehouse - article.amount,
+      amount: article.amountInWarehouse - article.deliveredAmount,
       debit:
         (article.amountInWarehouse - article.amount) *
         articleByID.purchasePrice,
