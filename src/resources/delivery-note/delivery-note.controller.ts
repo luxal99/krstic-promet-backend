@@ -80,9 +80,10 @@ export class DeliveryNoteController {
         );
 
       amountSizeToUpdate = articleById
-        ? articleById.deliveredAmount - article.deliveredAmount
+        ? article.deliveredAmount - articleById.deliveredAmount
         : article.deliveredAmount;
 
+      console.log(amountSizeToUpdate);
       await this.articleService.updateCustomAmount(article, amountSizeToUpdate);
     }
 
@@ -115,7 +116,7 @@ export class DeliveryNoteController {
       this.deliveryNoteService.delete(id).then(async () => {
         for (let articleDto of deliveryNotesById.listOfArticles) {
           articleDto.idArticle.amount =
-            articleDto.idArticle.amount + articleDto.amount;
+            articleDto.idArticle.amount + articleDto.deliveredAmount;
           await this.articleService.update(
             articleDto.idArticle.id,
             articleDto.idArticle
