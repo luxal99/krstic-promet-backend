@@ -164,4 +164,13 @@ export class DeliveryNoteController {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
   }
+
+  @Get("/:id")
+  async findById(@Param("id") id: number, @Res() res: Response) {
+    try {
+      res.send(await this.deliveryNoteService.findOne(id));
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
 }
