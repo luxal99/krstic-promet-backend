@@ -41,7 +41,7 @@ export class Article {
   @Column("double", { name: "selling_price", precision: 22 })
   sellingPrice: number;
 
-  @Column("int", { name: "amount" })
+  @Column({ name: "amount", type: "double" })
   amount: number;
 
   @Column("double", {
