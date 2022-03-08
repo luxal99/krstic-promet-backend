@@ -83,7 +83,6 @@ export class DeliveryNoteController {
         ? article.deliveredAmount - articleById.deliveredAmount
         : article.deliveredAmount;
 
-      console.log(amountSizeToUpdate);
       await this.articleService.updateCustomAmount(article, amountSizeToUpdate);
     }
 
@@ -117,10 +116,12 @@ export class DeliveryNoteController {
         for (let articleDto of deliveryNotesById.listOfArticles) {
           articleDto.idArticle.amount =
             articleDto.idArticle.amount + articleDto.deliveredAmount;
-          await this.articleService.update(
-            articleDto.idArticle.id,
-            articleDto.idArticle
-          );
+          await this.articleService
+            .update(articleDto.idArticle.id, articleDto.idArticle)
+            .then(async (resp) => {
+              resp.debit = resp.purchasePrice * resp.amount;
+              await this.articleService.update(resp.id, resp);
+            });
         }
 
         res.sendStatus(HttpStatus.OK);

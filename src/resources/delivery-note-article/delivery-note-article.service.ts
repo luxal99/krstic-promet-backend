@@ -6,6 +6,6 @@ import { DeliveryNoteArticleRepository } from "../../repository/DeliveryNoteArti
 @Injectable()
 export class DeliveryNoteArticleService extends GenericService<DeliveryNoteArticle> {
   constructor(private repository: DeliveryNoteArticleRepository) {
-    super(repository, []);
+    super(repository, ["idArticle", "idDeliveryNote"]);
   }
 }
