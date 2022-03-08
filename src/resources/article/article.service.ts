@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { GenericService } from "../../util/generic/generic.service";
 import { Article } from "../../entities/Article";
 import { ArticleRepository } from "../../repository/ArticleRepository";
-import { ILike, Like } from "typeorm";
+import { ILike, Like, UpdateResult } from "typeorm";
 
 @Injectable()
 export class ArticleService extends GenericService<Article> {
@@ -20,13 +20,12 @@ export class ArticleService extends GenericService<Article> {
     });
   }
 
-  async updateCustomAmount(article: any, articleSize: number): Promise<void> {
+  async updateCustomAmount(article: any, articleSize: number): Promise<any> {
     const articleByID: Article = await this.findOne(article.id);
-    await this.repository.update(article.id, {
+    return await this.repository.update(article.id, {
       amount: article.amountInWarehouse - articleSize,
       debit:
-        (article.amountInWarehouse - article.amount) *
-        articleByID.purchasePrice,
+        (article.amountInWarehouse - articleSize) * articleByID.purchasePrice,
     });
   }
 

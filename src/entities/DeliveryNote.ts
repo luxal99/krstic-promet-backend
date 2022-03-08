@@ -4,6 +4,7 @@ import { DeliveryNotePaidStatusEnum } from "../enum/DeliveryNotePaidStatusEnum";
 import { Client } from "./Client";
 import { DeliveryNoteArticle } from "./DeliveryNoteArticle";
 import { DeliveryNoteStatusEnum } from "../enum/DeliveryNoteStatusEnum";
+import { JoinTable } from "typeorm/browser";
 
 @Entity()
 export class DeliveryNote extends Base {

@@ -39,7 +39,7 @@ export class DeliveryNoteArticle {
 
   @ManyToOne(() => Article, (article) => article.listOfDeliveryNotes, {
     onDelete: "CASCADE",
-    onUpdate: "NO ACTION",
+    onUpdate: "CASCADE",
   })
   @JoinColumn([{ name: "id_article", referencedColumnName: "id" }])
   idArticle: Article;

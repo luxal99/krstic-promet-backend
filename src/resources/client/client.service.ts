@@ -6,6 +6,6 @@ import { ClientRepository } from "../../repository/ClientRepository";
 @Injectable()
 export class ClientService extends GenericService<Client> {
   constructor(genericRepository: ClientRepository) {
-    super(genericRepository, ["listOfDeliveryNotes"]);
+    super(genericRepository, []);
   }
 }

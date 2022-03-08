@@ -39,7 +39,9 @@ export class GenericController<T> {
   @Get()
   async get(@Res() res: Response, @Req() req: Request) {
     try {
-      res.send(await this.genericService.findAll());
+      this.genericService.findAll().then((resp) => {
+        res.send(resp);
+      });
     } catch (err) {
       res.status(HttpStatus.BAD_GATEWAY).send({ err });
     }
