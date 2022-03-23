@@ -1,71 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="Server">
   <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.32">
-    <root id="1">
-      <DefaultCasing>exact</DefaultCasing>
-      <DefaultEngine>InnoDB</DefaultEngine>
-      <Grants>|root||admin|localhost|ALTER|G
-|root||root|localhost|ALTER|G
-|root||admin|localhost|ALTER ROUTINE|G
-|root||root|localhost|ALTER ROUTINE|G
-|root||admin|localhost|CREATE|G
-|root||root|localhost|CREATE|G
-|root||admin|localhost|CREATE ROUTINE|G
-|root||root|localhost|CREATE ROUTINE|G
-|root||admin|localhost|CREATE TABLESPACE|G
-|root||root|localhost|CREATE TABLESPACE|G
-|root||admin|localhost|CREATE TEMPORARY TABLES|G
-|root||root|localhost|CREATE TEMPORARY TABLES|G
-|root||admin|localhost|CREATE USER|G
-|root||root|localhost|CREATE USER|G
-|root||admin|localhost|CREATE VIEW|G
-|root||root|localhost|CREATE VIEW|G
-|root||admin|localhost|DELETE|G
-|root||root|localhost|DELETE|G
-|root||admin|localhost|DELETE HISTORY|G
-|root||root|localhost|DELETE HISTORY|G
-|root||admin|localhost|DROP|G
-|root||root|localhost|DROP|G
-|root||admin|localhost|EVENT|G
-|root||root|localhost|EVENT|G
-|root||admin|localhost|EXECUTE|G
-|root||root|localhost|EXECUTE|G
-|root||admin|localhost|FILE|G
-|root||root|localhost|FILE|G
-|root||admin|localhost|INDEX|G
-|root||root|localhost|INDEX|G
-|root||admin|localhost|INSERT|G
-|root||root|localhost|INSERT|G
-|root||admin|localhost|LOCK TABLES|G
-|root||root|localhost|LOCK TABLES|G
-|root||admin|localhost|PROCESS|G
-|root||root|localhost|PROCESS|G
-|root||admin|localhost|REFERENCES|G
-|root||root|localhost|REFERENCES|G
-|root||admin|localhost|RELOAD|G
-|root||root|localhost|RELOAD|G
-|root||admin|localhost|REPLICATION CLIENT|G
-|root||root|localhost|REPLICATION CLIENT|G
-|root||admin|localhost|REPLICATION SLAVE|G
-|root||root|localhost|REPLICATION SLAVE|G
-|root||admin|localhost|SELECT|G
-|root||root|localhost|SELECT|G
-|root||admin|localhost|SHOW DATABASES|G
-|root||root|localhost|SHOW DATABASES|G
-|root||admin|localhost|SHOW VIEW|G
-|root||root|localhost|SHOW VIEW|G
-|root||admin|localhost|SHUTDOWN|G
-|root||root|localhost|SHUTDOWN|G
-|root||admin|localhost|SUPER|G
-|root||root|localhost|SUPER|G
-|root||admin|localhost|TRIGGER|G
-|root||root|localhost|TRIGGER|G
-|root||admin|localhost|UPDATE|G
-|root||root|localhost|UPDATE|G
-|root||admin|localhost|grant option|G
-|root||root|localhost|grant option|G</Grants>
-      <ServerVersion>10.3.34</ServerVersion>
-    </root>
+    <root id="1"/>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
     </collation>
