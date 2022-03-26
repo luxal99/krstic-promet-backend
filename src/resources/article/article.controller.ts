@@ -1,4 +1,12 @@
-import { Controller, Get, HttpStatus, Query, Req, Res } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Put,
+  Query,
+  Req,
+  Res,
+} from "@nestjs/common";
 import { ArticleService } from "./article.service";
 import { GenericController } from "../../util/generic/generic.controller";
 import { Article } from "../../entities/Article";
@@ -8,6 +16,18 @@ import { Request, Response } from "express";
 export class ArticleController extends GenericController<Article> {
   constructor(private readonly articleService: ArticleService) {
     super(articleService);
+  }
+
+  @Put()
+  async put(@Req() req: Request, @Res() res: Response) {
+    try {
+      req.body.debit = req.body.amount * req.body.sellingPrice;
+      await this.articleService.update(req.body.id, req.body).then((resp) => {
+        res.status(HttpStatus.OK).send(resp);
+      });
+    } catch (e) {
+      res.sendStatus(HttpStatus.BAD_GATEWAY);
+    }
   }
 
   @Get("search")
