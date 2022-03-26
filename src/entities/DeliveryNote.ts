@@ -17,6 +17,7 @@ export class DeliveryNote extends Base {
 
   @Column("date", {
     name: "date_of_delivery_note",
+
     nullable: false,
   })
   dateOfDeliveryNote: Date | null;
