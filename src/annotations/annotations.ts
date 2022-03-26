@@ -9,3 +9,13 @@ export const DeliveryNoteQuery = createParamDecorator(
     }
   }
 );
+export const Pagination = createParamDecorator(
+  (data, ctx: ExecutionContext) => {
+    try {
+      return JSON.parse(decodeURI(ctx.switchToHttp().getRequest().query.q))
+        .pagination;
+    } catch (e) {
+      return null;
+    }
+  }
+);

@@ -15,9 +15,10 @@ import { DeliveryNoteService } from "./delivery-note.service";
 import { Request, Response } from "express";
 import { DeliveryNote } from "../../entities/DeliveryNote";
 import { ArticleService } from "../article/article.service";
-import { DeliveryNoteQuery } from "../../annotations/annotations";
+import { DeliveryNoteQuery, Pagination } from "../../annotations/annotations";
 import { DeliveryNoteQueryDto } from "../../models/dto/DeliveryNoteQueryDto";
 import { DeliveryNoteArticle } from "../../entities/DeliveryNoteArticle";
+import { PaginationDto } from "../../models/dto/PaginationDto";
 
 @Controller("delivery-note")
 export class DeliveryNoteController {
@@ -92,12 +93,18 @@ export class DeliveryNoteController {
   @Get()
   async getAll(
     @Res() res: Response,
+    @Pagination() pagination: PaginationDto,
     @DeliveryNoteQuery() query: DeliveryNoteQueryDto
   ) {
     try {
       const listOfDeliveryNotes: [DeliveryNote[], number] =
         await this.deliveryNoteService.getAllWithQuery(query);
-      res.header("TOTAL", JSON.stringify(listOfDeliveryNotes[1]));
+      const total = listOfDeliveryNotes[1];
+      res.header("TOTAL", JSON.stringify(total));
+      res.header(
+        "NUMBER_OF_PAGES",
+        JSON.stringify(Math.ceil(total / pagination.rows))
+      );
       res.send(listOfDeliveryNotes[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
