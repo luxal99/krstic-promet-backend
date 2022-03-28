@@ -2,7 +2,6 @@ import { Injectable } from "@nestjs/common";
 import { GenericService } from "../../util/generic/generic.service";
 import { Article } from "../../entities/Article";
 import { ArticleRepository } from "../../repository/ArticleRepository";
-import { ILike, Like, UpdateResult } from "typeorm";
 
 @Injectable()
 export class ArticleService extends GenericService<Article> {

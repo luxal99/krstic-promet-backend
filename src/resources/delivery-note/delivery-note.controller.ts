@@ -101,10 +101,6 @@ export class DeliveryNoteController {
         await this.deliveryNoteService.getAllWithQuery(query);
       const total = listOfDeliveryNotes[1];
       res.header("TOTAL", JSON.stringify(total));
-      res.header(
-        "NUMBER_OF_PAGES",
-        JSON.stringify(Math.ceil(total / pagination.rows))
-      );
       res.send(listOfDeliveryNotes[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
