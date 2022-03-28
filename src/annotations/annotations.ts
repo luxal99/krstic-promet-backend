@@ -23,7 +23,7 @@ export const Pagination = createParamDecorator(
 
 export const Search = createParamDecorator((data, ctx: ExecutionContext) => {
   try {
-    return JSON.parse(decodeURI(ctx.switchToHttp().getRequest().query.search));
+    return ctx.switchToHttp().getRequest().query.search;
   } catch (e) {
     return null;
   }
