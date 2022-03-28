@@ -1,4 +1,5 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
+import exp from "constants";
 
 export const DeliveryNoteQuery = createParamDecorator(
   (data, ctx: ExecutionContext) => {
@@ -19,3 +20,11 @@ export const Pagination = createParamDecorator(
     }
   }
 );
+
+export const Search = createParamDecorator((data, ctx: ExecutionContext) => {
+  try {
+    return JSON.parse(decodeURI(ctx.switchToHttp().getRequest().query.search));
+  } catch (e) {
+    return null;
+  }
+});

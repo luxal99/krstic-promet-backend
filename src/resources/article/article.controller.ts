@@ -11,6 +11,7 @@ import { ArticleService } from "./article.service";
 import { GenericController } from "../../util/generic/generic.controller";
 import { Article } from "../../entities/Article";
 import { Request, Response } from "express";
+import { Search } from "../../annotations/annotations";
 
 @Controller("article")
 export class ArticleController extends GenericController<Article> {
@@ -34,12 +35,10 @@ export class ArticleController extends GenericController<Article> {
   async searchByCode(
     @Res() res: Response,
     @Req() req: Request,
-    @Query() query
+    @Search() search: string
   ) {
     try {
-      res.send(
-        await this.articleService.searchForArticle(decodeURI(query.search))
-      );
+      res.send(await this.articleService.searchForArticle(search));
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }

@@ -4,6 +4,7 @@ import { Client } from "../../entities/Client";
 import { ClientRepository } from "../../repository/ClientRepository";
 import { ClientQueryDto } from "../../models/dto/ClientQueryDto";
 import { PaginationDto } from "../../models/dto/PaginationDto";
+import { Article } from "../../entities/Article";
 @Injectable()
 export class ClientService extends GenericService<Client> {
   constructor(genericRepository: ClientRepository) {
@@ -18,5 +19,17 @@ export class ClientService extends GenericService<Client> {
       .take(pagination.rows)
       .skip(pagination.rows * pagination.page)
       .getManyAndCount();
+  }
+
+  async searchForClient(searchText: string): Promise<Client[]> {
+    return await this.genericRepository
+      .createQueryBuilder("client")
+      .where("LOWER(client.firstName) like :firstName", {
+        firstName: `%${searchText}%`,
+      })
+      .orWhere("LOWER(client.lastName) like :lastName", {
+        lastName: `%${searchText}%`,
+      })
+      .getMany();
   }
 }

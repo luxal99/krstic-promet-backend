@@ -1,9 +1,17 @@
-import { Controller, Get, HttpStatus, Param, Req, Res } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Query,
+  Req,
+  Res,
+} from "@nestjs/common";
 import { ClientService } from "./client.service";
 import { GenericController } from "../../util/generic/generic.controller";
 import { Client } from "../../entities/Client";
 import { Request, Response } from "express";
-import { Pagination } from "../../annotations/annotations";
+import { Pagination, Search } from "../../annotations/annotations";
 
 @Controller("client")
 export class ClientController extends GenericController<Client> {
@@ -22,6 +30,19 @@ export class ClientController extends GenericController<Client> {
         await this.clientService.getAllWithPagination(pagination);
       res.header("TOTAL", JSON.stringify(clientResult[1]));
       res.send(clientResult[0]);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
+
+  @Get("search")
+  async searchForClient(
+    @Res() res: Response,
+    @Req() req: Request,
+    @Search() search: string
+  ): Promise<void> {
+    try {
+      res.send(await this.clientService.searchForClient(search));
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
