@@ -2,9 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { GenericService } from "../../util/generic/generic.service";
 import { Client } from "../../entities/Client";
 import { ClientRepository } from "../../repository/ClientRepository";
-import { ClientQueryDto } from "../../models/dto/ClientQueryDto";
 import { PaginationDto } from "../../models/dto/PaginationDto";
-import { Article } from "../../entities/Article";
 @Injectable()
 export class ClientService extends GenericService<Client> {
   constructor(genericRepository: ClientRepository) {
