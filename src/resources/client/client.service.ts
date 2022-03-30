@@ -3,6 +3,7 @@ import { GenericService } from "../../util/generic/generic.service";
 import { Client } from "../../entities/Client";
 import { ClientRepository } from "../../repository/ClientRepository";
 import { PaginationDto } from "../../models/dto/PaginationDto";
+
 @Injectable()
 export class ClientService extends GenericService<Client> {
   constructor(genericRepository: ClientRepository) {
@@ -29,5 +30,18 @@ export class ClientService extends GenericService<Client> {
         lastName: `%${searchText}%`,
       })
       .getMany();
+  }
+
+  async getTotalDebtForClient(id: number): Promise<{ totalDebt: "0" }> {
+    return await this.genericRepository
+      .createQueryBuilder("client")
+      .leftJoinAndSelect("client.listOfDeliveryNotes", "listOfDeliveryNotes")
+      .leftJoinAndSelect("listOfDeliveryNotes.listOfArticles", "listOfArticles")
+      .select(
+        "SUM(listOfArticles.sellingPrice * listOfArticles.amount) as totalDebt"
+      )
+      .where("listOfDeliveryNotes.paidStatus = 'NOT_PAID'")
+      .andWhere("client.id = :id", { id })
+      .getRawOne();
   }
 }

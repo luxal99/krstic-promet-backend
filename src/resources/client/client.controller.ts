@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  HttpStatus,
-  Param,
-  Query,
-  Req,
-  Res,
-} from "@nestjs/common";
+import { Controller, Get, HttpStatus, Param, Req, Res } from "@nestjs/common";
 import { ClientService } from "./client.service";
 import { GenericController } from "../../util/generic/generic.controller";
 import { Client } from "../../entities/Client";
@@ -69,6 +61,19 @@ export class ClientController extends GenericController<Client> {
             res.send(resp.listOfDeliveryNotes);
           }
         });
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
+
+  @Get(":id/debt")
+  async getTotalDebt(
+    @Res() res: Response,
+    @Req() req: Request,
+    @Param("id") id: number
+  ) {
+    try {
+      res.send(this.clientService.getTotalDebtForClient(id));
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
