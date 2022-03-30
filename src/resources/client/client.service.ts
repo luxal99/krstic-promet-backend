@@ -44,4 +44,16 @@ export class ClientService extends GenericService<Client> {
       .andWhere("client.id = :id", { id })
       .getRawOne();
   }
+
+  async getTotalPaidForClient(id: number): Promise<{ totalPaid: "0" }> {
+    return await this.genericRepository
+      .createQueryBuilder("client")
+      .leftJoinAndSelect("client.listOfDeliveryNotes", "listOfDeliveryNotes")
+      .leftJoinAndSelect("listOfDeliveryNotes.listOfArticles", "listOfArticles")
+      .select(
+        "SUM(listOfArticles.sellingPrice * listOfArticles.payedAmount) as totalPaid"
+      )
+      .where("client.id = :id", { id })
+      .getRawOne();
+  }
 }

@@ -73,7 +73,20 @@ export class ClientController extends GenericController<Client> {
     @Param("id") id: number
   ) {
     try {
-      res.send(this.clientService.getTotalDebtForClient(id));
+      res.send(await this.clientService.getTotalDebtForClient(id));
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
+
+  @Get(":id/paid")
+  async getTotalPaid(
+    @Res() res: Response,
+    @Req() req: Request,
+    @Param("id") id: number
+  ) {
+    try {
+      res.send(await this.clientService.getTotalPaidForClient(id));
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
