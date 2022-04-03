@@ -1,15 +1,13 @@
 import { createParamDecorator, ExecutionContext } from "@nestjs/common";
 import exp from "constants";
 
-export const DeliveryNoteQuery = createParamDecorator(
-  (data, ctx: ExecutionContext) => {
-    try {
-      return JSON.parse(decodeURI(ctx.switchToHttp().getRequest().query.q));
-    } catch (e) {
-      return null;
-    }
+export const QQuery = createParamDecorator((data, ctx: ExecutionContext) => {
+  try {
+    return JSON.parse(decodeURI(ctx.switchToHttp().getRequest().query.q));
+  } catch (e) {
+    return null;
   }
-);
+});
 export const Pagination = createParamDecorator(
   (data, ctx: ExecutionContext) => {
     try {

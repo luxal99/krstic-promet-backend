@@ -3,7 +3,8 @@ import { ClientService } from "./client.service";
 import { GenericController } from "../../util/generic/generic.controller";
 import { Client } from "../../entities/Client";
 import { Request, Response } from "express";
-import { Pagination, Search } from "../../annotations/annotations";
+import { Pagination, QQuery, Search } from "../../annotations/annotations";
+import { ClientQueryDto } from "../../models/dto/ClientQueryDto";
 
 @Controller("client")
 export class ClientController extends GenericController<Client> {
@@ -43,24 +44,17 @@ export class ClientController extends GenericController<Client> {
   @Get("/delivery-notes/:id")
   async findAllDeliveryNotesByClientId(
     @Param("id") id: number,
-    @Res() res: Response
+    @Res() res: Response,
+    @QQuery() qquery: ClientQueryDto
   ) {
     try {
-      this.clientService.genericRepository
-        .findOne({
-          where: { id },
-          relations: [
-            "listOfDeliveryNotes",
-            "listOfDeliveryNotes.idClient",
-            "listOfDeliveryNotes.listOfArticles",
-            "listOfDeliveryNotes.listOfArticles.idArticle",
-          ],
-        })
-        .then((resp) => {
-          if (resp) {
-            res.send(resp.listOfDeliveryNotes);
-          }
-        });
+      const result = await this.clientService.getDeliveryNotesForClient(
+        id,
+        qquery
+      );
+
+      res.setHeader("TOTAL", result[1]);
+      res.send(result[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }

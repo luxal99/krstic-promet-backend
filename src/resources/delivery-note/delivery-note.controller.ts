@@ -15,7 +15,7 @@ import { DeliveryNoteService } from "./delivery-note.service";
 import { Request, Response } from "express";
 import { DeliveryNote } from "../../entities/DeliveryNote";
 import { ArticleService } from "../article/article.service";
-import { DeliveryNoteQuery, Pagination } from "../../annotations/annotations";
+import { QQuery, Pagination } from "../../annotations/annotations";
 import { DeliveryNoteQueryDto } from "../../models/dto/DeliveryNoteQueryDto";
 import { DeliveryNoteArticle } from "../../entities/DeliveryNoteArticle";
 import { PaginationDto } from "../../models/dto/PaginationDto";
@@ -94,7 +94,7 @@ export class DeliveryNoteController {
   async getAll(
     @Res() res: Response,
     @Pagination() pagination: PaginationDto,
-    @DeliveryNoteQuery() query: DeliveryNoteQueryDto
+    @QQuery() query: DeliveryNoteQueryDto
   ) {
     try {
       const listOfDeliveryNotes: [DeliveryNote[], number] =

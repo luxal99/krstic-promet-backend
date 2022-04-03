@@ -3,10 +3,16 @@ import { GenericService } from "../../util/generic/generic.service";
 import { Client } from "../../entities/Client";
 import { ClientRepository } from "../../repository/ClientRepository";
 import { PaginationDto } from "../../models/dto/PaginationDto";
+import { DeliveryNoteService } from "../delivery-note/delivery-note.service";
+import { DeliveryNote } from "../../entities/DeliveryNote";
+import { ClientQueryDto } from "../../models/dto/ClientQueryDto";
 
 @Injectable()
 export class ClientService extends GenericService<Client> {
-  constructor(genericRepository: ClientRepository) {
+  constructor(
+    genericRepository: ClientRepository,
+    private deliveryNoteService: DeliveryNoteService
+  ) {
     super(genericRepository, []);
   }
 
@@ -55,5 +61,32 @@ export class ClientService extends GenericService<Client> {
       )
       .where("client.id = :id", { id })
       .getRawOne();
+  }
+
+  async getDeliveryNotesForClient(
+    idClient: number,
+    clientQuery: ClientQueryDto
+  ): Promise<[DeliveryNote[], number]> {
+    let query = this.deliveryNoteService.genericRepository
+      .createQueryBuilder("deliveryNotes")
+      .leftJoinAndSelect("deliveryNotes.listOfArticles", "listOfArticles")
+      .leftJoinAndSelect("listOfArticles.idArticle", "idArticle")
+      .leftJoinAndSelect("listOfArticles.idDeliveryNote", "idDeliveryNote")
+      .leftJoinAndSelect("deliveryNotes.idClient", "idClient")
+      .where("deliveryNotes.idClient.id = :idClient", { idClient })
+      .take(clientQuery.pagination.rows)
+      .skip(clientQuery.pagination.rows * clientQuery.pagination.page);
+
+    if (clientQuery.dateQueryDto) {
+      query
+        .andWhere("deliveryNotes.dateOfDeliveryNote >= :startDate", {
+          startDate: clientQuery.dateQueryDto.startDate,
+        })
+        .andWhere("deliveryNotes.dateOfDeliveryNote <= :endDate", {
+          endDate: clientQuery.dateQueryDto.endDate,
+        });
+    }
+
+    return query.getManyAndCount();
   }
 }
