@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { GenericService } from "../../util/generic/generic.service";
 import { Article } from "../../entities/Article";
 import { ArticleRepository } from "../../repository/ArticleRepository";
+import { PaginationDto } from "../../models/dto/PaginationDto";
 
 @Injectable()
 export class ArticleService extends GenericService<Article> {
@@ -42,5 +43,18 @@ export class ArticleService extends GenericService<Article> {
         name: `%${searchText}%`,
       })
       .getMany();
+  }
+
+  async getArticlesWithPagination(
+    pagination: PaginationDto
+  ): Promise<[Article[], number]> {
+    return this.genericRepository
+      .createQueryBuilder("article")
+      .leftJoinAndSelect("article.idArticleSubCategory", "idArticleSubCategory")
+      .leftJoinAndSelect("article.idWarehouse", "idWarehouse")
+      .leftJoinAndSelect("article.idConversion", "idConversion")
+      .take(pagination.rows)
+      .skip(pagination.rows * pagination.page)
+      .getManyAndCount();
   }
 }
