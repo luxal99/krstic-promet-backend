@@ -75,7 +75,8 @@ export class ClientService extends GenericService<Client> {
       .leftJoinAndSelect("deliveryNotes.idClient", "idClient")
       .where("deliveryNotes.idClient.id = :idClient", { idClient })
       .take(clientQuery.pagination.rows)
-      .skip(clientQuery.pagination.rows * clientQuery.pagination.page);
+      .skip(clientQuery.pagination.rows * clientQuery.pagination.page)
+      .orderBy("deliveryNotes.dateOfDeliveryNote", "ASC");
 
     if (clientQuery.dateQueryDto) {
       query
