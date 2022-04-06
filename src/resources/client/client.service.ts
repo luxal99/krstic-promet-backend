@@ -76,7 +76,7 @@ export class ClientService extends GenericService<Client> {
       .where("deliveryNotes.idClient.id = :idClient", { idClient })
       .take(clientQuery.pagination.rows)
       .skip(clientQuery.pagination.rows * clientQuery.pagination.page)
-      .orderBy("deliveryNotes.dateOfDeliveryNote", "ASC");
+      .orderBy("deliveryNotes.dateOfDeliveryNote", "DESC");
 
     if (clientQuery.dateQueryDto) {
       query

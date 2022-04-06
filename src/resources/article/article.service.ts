@@ -3,6 +3,7 @@ import { GenericService } from "../../util/generic/generic.service";
 import { Article } from "../../entities/Article";
 import { ArticleRepository } from "../../repository/ArticleRepository";
 import { PaginationDto } from "../../models/dto/PaginationDto";
+import { SelectQueryBuilder } from "typeorm";
 
 @Injectable()
 export class ArticleService extends GenericService<Article> {
@@ -30,16 +31,9 @@ export class ArticleService extends GenericService<Article> {
   }
 
   async searchForArticle(searchText: string): Promise<Article[]> {
-    return await this.repository
-      .createQueryBuilder("deliveryNote")
-      .leftJoinAndSelect(
-        "deliveryNote.idArticleSubCategory",
-        "idArticleSubCategory"
-      )
-      .leftJoinAndSelect("deliveryNote.idWarehouse", "idWarehouse")
-      .leftJoinAndSelect("deliveryNote.idConversion", "idConversion")
-      .where("LOWER(deliveryNote.code) like :code", { code: `%${searchText}%` })
-      .orWhere("LOWER(deliveryNote.name) like :name", {
+    return await this.getArticleQueryBuilder()
+      .where("LOWER(article.code) like :code", { code: `%${searchText}%` })
+      .orWhere("LOWER(article.name) like :name", {
         name: `%${searchText}%`,
       })
       .getMany();
@@ -48,13 +42,39 @@ export class ArticleService extends GenericService<Article> {
   async getArticlesWithPagination(
     pagination: PaginationDto
   ): Promise<[Article[], number]> {
-    return this.genericRepository
+    return this.getArticleQueryBuilder(pagination).getManyAndCount();
+  }
+
+  async getArticlesByWarehouse(
+    idWarehouse: number,
+    pagination: PaginationDto
+  ): Promise<[Article[], number]> {
+    return await this.getArticleQueryBuilder(pagination)
+      .where("article.idWarehouse = :idWarehouse", { idWarehouse })
+      .getManyAndCount();
+  }
+
+  async getArticlesByArticleSubCategory(
+    idArticleSubCategory: number,
+    pagination: PaginationDto
+  ): Promise<[Article[], number]> {
+    return await this.getArticleQueryBuilder(pagination)
+      .where("article.idArticleSubCategory = :idArticleSubCategory", {
+        idArticleSubCategory,
+      })
+      .getManyAndCount();
+  }
+
+  getArticleQueryBuilder(pagination?: PaginationDto): SelectQueryBuilder<any> {
+    const query = this.genericRepository
       .createQueryBuilder("article")
       .leftJoinAndSelect("article.idArticleSubCategory", "idArticleSubCategory")
       .leftJoinAndSelect("article.idWarehouse", "idWarehouse")
-      .leftJoinAndSelect("article.idConversion", "idConversion")
-      .take(pagination.rows)
-      .skip(pagination.rows * pagination.page)
-      .getManyAndCount();
+      .leftJoinAndSelect("article.idConversion", "idConversion");
+
+    if (pagination) {
+      query.take(pagination.rows).skip(pagination.rows * pagination.page);
+    }
+    return query;
   }
 }

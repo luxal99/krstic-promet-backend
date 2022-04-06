@@ -1,9 +1,19 @@
-import { Controller, Get, HttpStatus, Put, Req, Res } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Put,
+  Req,
+  Res,
+} from "@nestjs/common";
 import { ArticleService } from "./article.service";
 import { GenericController } from "../../util/generic/generic.controller";
 import { Article } from "../../entities/Article";
 import { Request, Response } from "express";
 import { Pagination, Search } from "../../annotations/annotations";
+import { PaginationDto } from "../../models/dto/PaginationDto";
+
 @Controller("article")
 export class ArticleController extends GenericController<Article> {
   constructor(private readonly articleService: ArticleService) {
@@ -46,6 +56,43 @@ export class ArticleController extends GenericController<Article> {
   ) {
     try {
       res.send(await this.articleService.searchForArticle(search));
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
+
+  @Get("warehouse/:id")
+  async getArticlesByWarehouse(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Param("id") id: number,
+    @Pagination() pagination: PaginationDto
+  ) {
+    try {
+      const result: [Article[], number] =
+        await this.articleService.getArticlesByWarehouse(id, pagination);
+      res.header("TOTAL", result[1].toString());
+      res.send(result[0]);
+    } catch (err) {
+      res.status(HttpStatus.BAD_REQUEST).send({ err });
+    }
+  }
+
+  @Get("article-sub-category/:id")
+  async getArticlesByArticleSubCategory(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Param("id") id: number,
+    @Pagination() pagination: PaginationDto
+  ) {
+    try {
+      const result: [Article[], number] =
+        await this.articleService.getArticlesByArticleSubCategory(
+          id,
+          pagination
+        );
+      res.header("TOTAL", result[1].toString());
+      res.send(result[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
