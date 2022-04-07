@@ -49,7 +49,7 @@ export class UserController extends GenericController<User> {
             const token = jwt.sign(
               { username: userByID.username },
               process.env.TOKEN_SECRET,
-              { expiresIn: 60 * 60 * 3 }
+              { expiresIn: 60 * 60 * 12 }
             );
             resp.setHeader(AUTHORIZATION_HEADER, token);
             resp.send({ message: "Welcome" });
