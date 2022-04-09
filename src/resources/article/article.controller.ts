@@ -11,8 +11,10 @@ import { ArticleService } from "./article.service";
 import { GenericController } from "../../util/generic/generic.controller";
 import { Article } from "../../entities/Article";
 import { Request, Response } from "express";
-import { Pagination, Search } from "../../annotations/annotations";
+import { Pagination, QQuery, Search } from "../../annotations/annotations";
 import { PaginationDto } from "../../models/dto/PaginationDto";
+import { TOTAL_HEADER } from "../../constant/constant";
+import { ArticleQueryDto } from "../../models/dto/ArticleQueryDto";
 
 @Controller("article")
 export class ArticleController extends GenericController<Article> {
@@ -41,7 +43,7 @@ export class ArticleController extends GenericController<Article> {
     try {
       const articleQueryResults: [Article[], number] =
         await this.articleService.getArticlesWithPagination(pagination);
-      res.header("TOTAL", JSON.stringify(articleQueryResults[1]));
+      res.header(TOTAL_HEADER, JSON.stringify(articleQueryResults[1]));
       res.send(articleQueryResults[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
@@ -52,10 +54,13 @@ export class ArticleController extends GenericController<Article> {
   async searchArticles(
     @Res() res: Response,
     @Req() req: Request,
-    @Search() search: string
+    @QQuery() query: ArticleQueryDto
   ) {
     try {
-      res.send(await this.articleService.searchForArticle(search));
+      const queryResult: [Article[], number] =
+        await this.articleService.searchForArticle(query);
+      res.setHeader(TOTAL_HEADER, queryResult[1].toString());
+      res.send(queryResult[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
     }
@@ -71,7 +76,7 @@ export class ArticleController extends GenericController<Article> {
     try {
       const result: [Article[], number] =
         await this.articleService.getArticlesByWarehouse(id, pagination);
-      res.header("TOTAL", result[1].toString());
+      res.header(TOTAL_HEADER, result[1].toString());
       res.send(result[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
@@ -91,7 +96,7 @@ export class ArticleController extends GenericController<Article> {
           id,
           pagination
         );
-      res.header("TOTAL", result[1].toString());
+      res.header(TOTAL_HEADER, result[1].toString());
       res.send(result[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });

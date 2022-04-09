@@ -5,6 +5,7 @@ import { Client } from "../../entities/Client";
 import { Request, Response } from "express";
 import { Pagination, QQuery, Search } from "../../annotations/annotations";
 import { ClientQueryDto } from "../../models/dto/ClientQueryDto";
+import { TOTAL_HEADER } from "../../constant/constant";
 
 @Controller("client")
 export class ClientController extends GenericController<Client> {
@@ -21,7 +22,7 @@ export class ClientController extends GenericController<Client> {
     try {
       const clientResult: [Client[], number] =
         await this.clientService.getAllWithPagination(pagination);
-      res.header("TOTAL", JSON.stringify(clientResult[1]));
+      res.header(TOTAL_HEADER, JSON.stringify(clientResult[1]));
       res.send(clientResult[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });
@@ -53,7 +54,7 @@ export class ClientController extends GenericController<Client> {
         qquery
       );
 
-      res.setHeader("TOTAL", result[1]);
+      res.setHeader(TOTAL_HEADER, result[1]);
       res.send(result[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });

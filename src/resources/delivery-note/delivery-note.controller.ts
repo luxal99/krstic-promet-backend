@@ -19,6 +19,7 @@ import { QQuery, Pagination } from "../../annotations/annotations";
 import { DeliveryNoteQueryDto } from "../../models/dto/DeliveryNoteQueryDto";
 import { DeliveryNoteArticle } from "../../entities/DeliveryNoteArticle";
 import { PaginationDto } from "../../models/dto/PaginationDto";
+import { TOTAL_HEADER } from "../../constant/constant";
 
 @Controller("delivery-note")
 export class DeliveryNoteController {
@@ -100,7 +101,7 @@ export class DeliveryNoteController {
       const listOfDeliveryNotes: [DeliveryNote[], number] =
         await this.deliveryNoteService.getAllWithQuery(query);
       const total = listOfDeliveryNotes[1];
-      res.header("TOTAL", JSON.stringify(total));
+      res.header(TOTAL_HEADER, JSON.stringify(total));
       res.send(listOfDeliveryNotes[0]);
     } catch (err) {
       res.status(HttpStatus.BAD_REQUEST).send({ err });

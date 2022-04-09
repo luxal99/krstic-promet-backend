@@ -4,6 +4,8 @@ import { Article } from "../../entities/Article";
 import { ArticleRepository } from "../../repository/ArticleRepository";
 import { PaginationDto } from "../../models/dto/PaginationDto";
 import { SelectQueryBuilder } from "typeorm";
+import { ArticleQueryDto } from "../../models/dto/ArticleQueryDto";
+import { getQueryParameters, QueryParameters } from "../../util/query/get-path";
 
 @Injectable()
 export class ArticleService extends GenericService<Article> {
@@ -30,14 +32,15 @@ export class ArticleService extends GenericService<Article> {
     });
   }
 
-  async searchForArticle(searchText: string): Promise<Article[]> {
-    return await this.getArticleQueryBuilder()
-      .where("LOWER(article.code) like :code", { code: `%${searchText}%` })
-      .orWhere("LOWER(article.name) like :name", {
-        name: `%${searchText}%`,
-      })
-      .getMany();
-  }
+  // async searchForArticle(searchText: string): Promise<Article[]> {
+  //     return;
+  //     // return await this.getArticleQueryBuilder()
+  //     //   .where("LOWER(article.code) like :code", { code: `%${searchText}%` })
+  //     //   .orWhere("LOWER(article.name) like :name", {
+  //     //     name: `%${searchText}%`,
+  //     //   })
+  //     //   .getMany();
+  // }
 
   async getArticlesWithPagination(
     pagination: PaginationDto
@@ -76,5 +79,32 @@ export class ArticleService extends GenericService<Article> {
       query.take(pagination.rows).skip(pagination.rows * pagination.page);
     }
     return query;
+  }
+
+  async searchForArticle(
+    queryDto: ArticleQueryDto
+  ): Promise<[Article[], number]> {
+    const queryBuilder: SelectQueryBuilder<any> = this.getArticleQueryBuilder(
+      queryDto.pagination
+    );
+    queryDto.filters.forEach((item) => {
+      const queryParameters: QueryParameters = getQueryParameters(
+        item,
+        "article"
+      );
+      queryBuilder.andWhere(
+        queryParameters.path,
+        queryParameters.comparableObject
+      );
+    });
+
+    if (queryDto.searchText) {
+      queryBuilder.andWhere(
+        "(LOWER(article.code) like :searchText or LOWER(article.name) like :searchText)",
+        { searchText: `%${queryDto.searchText}%` }
+      );
+    }
+
+    return queryBuilder.getManyAndCount();
   }
 }
