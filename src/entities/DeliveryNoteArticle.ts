@@ -18,12 +18,12 @@ export class DeliveryNoteArticle {
   @Column({ name: "selling_price" })
   sellingPrice: number;
 
-  @Column({ name: "amount" })
+  @Column({ name: "amount", type: "double" })
   amount: number;
-  @Column({ name: "payed_amount", default: 0 })
+  @Column({ name: "payed_amount", default: 0, type: "double" })
   payedAmount: number;
 
-  @Column({ name: "delivered_amount", default: 0 })
+  @Column({ name: "delivered_amount", default: 0, type: "double" })
   deliveredAmount: number;
 
   @ManyToOne(
