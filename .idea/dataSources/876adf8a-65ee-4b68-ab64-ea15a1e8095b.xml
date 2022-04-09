@@ -1,7 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="Server">
   <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.32">
-    <root id="1"/>
+    <root id="1">
+      <DefaultCasing>exact</DefaultCasing>
+      <DefaultEngine>InnoDB</DefaultEngine>
+      <Grants>|root||admin|localhost|ALTER|G
+|root||root|localhost|ALTER|G
+|root||admin|localhost|ALTER ROUTINE|G
+|root||root|localhost|ALTER ROUTINE|G
+|root||admin|localhost|CREATE|G
+|root||root|localhost|CREATE|G
+|root||admin|localhost|CREATE ROUTINE|G
+|root||root|localhost|CREATE ROUTINE|G
+|root||admin|localhost|CREATE TABLESPACE|G
+|root||root|localhost|CREATE TABLESPACE|G
+|root||admin|localhost|CREATE TEMPORARY TABLES|G
+|root||root|localhost|CREATE TEMPORARY TABLES|G
+|root||admin|localhost|CREATE USER|G
+|root||root|localhost|CREATE USER|G
+|root||admin|localhost|CREATE VIEW|G
+|root||root|localhost|CREATE VIEW|G
+|root||admin|localhost|DELETE|G
+|root||root|localhost|DELETE|G
+|root||admin|localhost|DELETE HISTORY|G
+|root||root|localhost|DELETE HISTORY|G
+|root||admin|localhost|DROP|G
+|root||root|localhost|DROP|G
+|root||admin|localhost|EVENT|G
+|root||root|localhost|EVENT|G
+|root||admin|localhost|EXECUTE|G
+|root||root|localhost|EXECUTE|G
+|root||admin|localhost|FILE|G
+|root||root|localhost|FILE|G
+|root||admin|localhost|INDEX|G
+|root||root|localhost|INDEX|G
+|root||admin|localhost|INSERT|G
+|root||root|localhost|INSERT|G
+|root||admin|localhost|LOCK TABLES|G
+|root||root|localhost|LOCK TABLES|G
+|root||admin|localhost|PROCESS|G
+|root||root|localhost|PROCESS|G
+|root||admin|localhost|REFERENCES|G
+|root||root|localhost|REFERENCES|G
+|root||admin|localhost|RELOAD|G
+|root||root|localhost|RELOAD|G
+|root||admin|localhost|REPLICATION CLIENT|G
+|root||root|localhost|REPLICATION CLIENT|G
+|root||admin|localhost|REPLICATION SLAVE|G
+|root||root|localhost|REPLICATION SLAVE|G
+|root||admin|localhost|SELECT|G
+|root||root|localhost|SELECT|G
+|root||admin|localhost|SHOW DATABASES|G
+|root||root|localhost|SHOW DATABASES|G
+|root||admin|localhost|SHOW VIEW|G
+|root||root|localhost|SHOW VIEW|G
+|root||admin|localhost|SHUTDOWN|G
+|root||root|localhost|SHUTDOWN|G
+|root||admin|localhost|SUPER|G
+|root||root|localhost|SUPER|G
+|root||admin|localhost|TRIGGER|G
+|root||root|localhost|TRIGGER|G
+|root||admin|localhost|UPDATE|G
+|root||root|localhost|UPDATE|G
+|root||admin|localhost|grant option|G
+|root||root|localhost|grant option|G</Grants>
+      <ServerVersion>10.3.34</ServerVersion>
+    </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
     </collation>
@@ -1021,25 +1085,25 @@
     <schema id="327" parent="1" name="information_schema">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="328" parent="1" name="krstic_promet">
+    <schema id="328" parent="1" name="lawyer_office">
       <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
-    <schema id="329" parent="1" name="lawyer_office">
+    <schema id="329" parent="1" name="lux_key">
       <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
-    <schema id="330" parent="1" name="lux_key">
+    <schema id="330" parent="1" name="luxal">
       <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
-    <schema id="331" parent="1" name="luxal">
+    <schema id="331" parent="1" name="mysql">
       <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
-    <schema id="332" parent="1" name="mysql">
-      <CollationName>utf8mb4_general_ci</CollationName>
-    </schema>
-    <schema id="333" parent="1" name="performance_schema">
+    <schema id="332" parent="1" name="performance_schema">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="334" parent="1" name="sistem_nekretnine">
+    <schema id="333" parent="1" name="sistem_nekretnine">
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </schema>
+    <schema id="334" parent="1" name="krstic_promet">
       <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
     <user id="335" parent="1" name="admin">
@@ -1048,39 +1112,39 @@
     <user id="336" parent="1" name="root">
       <Host>localhost</Host>
     </user>
-    <table id="337" parent="328" name="article">
+    <table id="337" parent="334" name="article">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="338" parent="328" name="article_category">
+    <table id="338" parent="334" name="article_category">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="339" parent="328" name="article_sub_category">
+    <table id="339" parent="334" name="article_sub_category">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="340" parent="328" name="client">
+    <table id="340" parent="334" name="client">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="341" parent="328" name="conversion">
+    <table id="341" parent="334" name="conversion">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="342" parent="328" name="delivery_note">
+    <table id="342" parent="334" name="delivery_note">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="343" parent="328" name="delivery_note_article">
+    <table id="343" parent="334" name="delivery_note_article">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="344" parent="328" name="user">
+    <table id="344" parent="334" name="user">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="345" parent="328" name="warehouse">
+    <table id="345" parent="334" name="warehouse">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
@@ -1225,238 +1289,243 @@
       <DataType>int(11)|0s</DataType>
       <Position>3</Position>
     </column>
-    <index id="375" parent="339" name="id_article_category">
+    <foreign-key id="375" parent="339" name="FK_2728d4a8889af1711409ad6d03f">
+      <ColNames>id_article_category</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>article_category</RefTableName>
+    </foreign-key>
+    <index id="376" parent="339" name="id_article_category">
       <ColNames>id_article_category</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="376" parent="339" name="PRIMARY">
+    <key id="377" parent="339" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="377" parent="340" name="id">
+    <column id="378" parent="340" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="378" parent="340" name="first_name">
+    <column id="379" parent="340" name="first_name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="379" parent="340" name="last_name">
+    <column id="380" parent="340" name="last_name">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="380" parent="340" name="telephone">
+    <column id="381" parent="340" name="telephone">
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <key id="381" parent="340" name="PRIMARY">
+    <key id="382" parent="340" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="382" parent="341" name="id">
+    <column id="383" parent="341" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="383" parent="341" name="conversion_to_value">
+    <column id="384" parent="341" name="conversion_to_value">
       <DataType>double|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="384" parent="341" name="conversionFromUnit">
+    <column id="385" parent="341" name="conversionFromUnit">
       <DataType>enum(&apos;m&apos;, &apos;m²&apos;, &apos;kg&apos;, &apos;g&apos;)|0e</DataType>
       <DefaultExpression>&apos;m&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="385" parent="341" name="conversionToUnit">
+    <column id="386" parent="341" name="conversionToUnit">
       <DataType>enum(&apos;m&apos;, &apos;m²&apos;, &apos;kg&apos;, &apos;g&apos;)|0e</DataType>
       <DefaultExpression>&apos;m&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="386" parent="341" name="conversion_from_value">
+    <column id="387" parent="341" name="conversion_from_value">
       <DataType>varchar(255)|0s</DataType>
       <Position>5</Position>
     </column>
-    <column id="387" parent="341" name="name">
+    <column id="388" parent="341" name="name">
       <DataType>varchar(255)|0s</DataType>
       <Position>6</Position>
     </column>
-    <key id="388" parent="341" name="PRIMARY">
+    <key id="389" parent="341" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="389" parent="342" name="id">
+    <column id="390" parent="342" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="390" parent="342" name="created_date">
+    <column id="391" parent="342" name="created_date">
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>current_timestamp()</DefaultExpression>
       <Position>2</Position>
     </column>
-    <column id="391" parent="342" name="paid_status">
+    <column id="392" parent="342" name="paid_status">
       <DataType>enum(&apos;PAID&apos;, &apos;NOT_PAID&apos;)|0e</DataType>
       <DefaultExpression>&apos;NOT_PAID&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="392" parent="342" name="id_client">
+    <column id="393" parent="342" name="id_client">
       <DataType>int(11)|0s</DataType>
       <Position>4</Position>
     </column>
-    <column id="393" parent="342" name="gross">
+    <column id="394" parent="342" name="gross">
       <DataType>double|0s</DataType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="394" parent="342" name="date_of_delivery_note">
+    <column id="395" parent="342" name="date_of_delivery_note">
       <DataType>date|0s</DataType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="395" parent="342" name="delivery_status">
+    <column id="396" parent="342" name="delivery_status">
       <DataType>enum(&apos;DELIVERED&apos;, &apos;NOT_DELIVERED&apos;)|0e</DataType>
       <DefaultExpression>&apos;NOT_DELIVERED&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <foreign-key id="396" parent="342" name="FK_5dd301bc1074e0117888fee5a78">
+    <foreign-key id="397" parent="342" name="FK_5dd301bc1074e0117888fee5a78">
       <ColNames>id_client</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>client</RefTableName>
     </foreign-key>
-    <index id="397" parent="342" name="FK_5dd301bc1074e0117888fee5a78">
+    <index id="398" parent="342" name="FK_5dd301bc1074e0117888fee5a78">
       <ColNames>id_client</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="398" parent="342" name="PRIMARY">
+    <key id="399" parent="342" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="399" parent="343" name="id">
+    <column id="400" parent="343" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="400" parent="343" name="selling_price">
+    <column id="401" parent="343" name="selling_price">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="401" parent="343" name="amount">
+    <column id="402" parent="343" name="amount">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="402" parent="343" name="payed_amount">
+    <column id="403" parent="343" name="payed_amount">
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="403" parent="343" name="paid_status">
+    <column id="404" parent="343" name="paid_status">
       <DataType>enum(&apos;PAID&apos;, &apos;NOT_PAID&apos;)|0e</DataType>
       <DefaultExpression>&apos;NOT_PAID&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="404" parent="343" name="delivered_amount">
+    <column id="405" parent="343" name="delivered_amount">
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="405" parent="343" name="delivery_status">
+    <column id="406" parent="343" name="delivery_status">
       <DataType>enum(&apos;DELIVERED&apos;, &apos;NOT_DELIVERED&apos;)|0e</DataType>
       <DefaultExpression>&apos;NOT_DELIVERED&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="406" parent="343" name="id_delivery_note">
+    <column id="407" parent="343" name="id_delivery_note">
       <DataType>int(11)|0s</DataType>
       <Position>8</Position>
     </column>
-    <column id="407" parent="343" name="id_article">
+    <column id="408" parent="343" name="id_article">
       <DataType>int(11)|0s</DataType>
       <Position>9</Position>
     </column>
-    <foreign-key id="408" parent="343" name="FK_7d725847224c3a8b09f54b6d969">
+    <foreign-key id="409" parent="343" name="FK_7d725847224c3a8b09f54b6d969">
       <ColNames>id_delivery_note</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>id</RefColNames>
       <RefTableName>delivery_note</RefTableName>
     </foreign-key>
-    <foreign-key id="409" parent="343" name="FK_a85a3e942ee21f879499faf652e">
+    <foreign-key id="410" parent="343" name="FK_a85a3e942ee21f879499faf652e">
       <ColNames>id_article</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id</RefColNames>
       <RefTableName>article</RefTableName>
     </foreign-key>
-    <index id="410" parent="343" name="FK_7d725847224c3a8b09f54b6d969">
+    <index id="411" parent="343" name="FK_7d725847224c3a8b09f54b6d969">
       <ColNames>id_delivery_note</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="411" parent="343" name="FK_a85a3e942ee21f879499faf652e">
+    <index id="412" parent="343" name="FK_a85a3e942ee21f879499faf652e">
       <ColNames>id_article</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="412" parent="343" name="PRIMARY">
+    <key id="413" parent="343" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="413" parent="344" name="id">
+    <column id="414" parent="344" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="414" parent="344" name="username">
+    <column id="415" parent="344" name="username">
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="415" parent="344" name="password">
+    <column id="416" parent="344" name="password">
       <DataType>varchar(64)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <key id="416" parent="344" name="PRIMARY">
+    <key id="417" parent="344" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
-    <column id="417" parent="345" name="id">
+    <column id="418" parent="345" name="id">
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="418" parent="345" name="name">
+    <column id="419" parent="345" name="name">
       <DataType>varchar(128)|0s</DataType>
       <Position>2</Position>
     </column>
-    <column id="419" parent="345" name="created_date">
+    <column id="420" parent="345" name="created_date">
       <DataType>timestamp|0s</DataType>
       <DefaultExpression>current_timestamp()</DefaultExpression>
       <Position>3</Position>
     </column>
-    <key id="420" parent="345" name="PRIMARY">
+    <key id="421" parent="345" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
